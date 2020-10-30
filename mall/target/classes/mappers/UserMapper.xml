@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.mall.pojo.User">
+        <id column="user_uid" property="userUid" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="user_tel" property="userTel" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="user_role" property="userRole" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </resultMap>
+
+    <select id="loginByUsernameAndPassword" resultMap="BaseResultMap" parameterType="map">
+        SELECT *
+        FROM mall_user
+        WHERE user_nickname=#{userNickname} AND user_password=#{userPassword};
+    </select>
+
+    <select id="selectCountByNickname" resultType="int" parameterType="string">
+      SELECT count(1) FROM mall_user WHERE user_nickname = #{userNickname}
+    </select>
+    <select id="selectCountByUserTel" resultType="int" parameterType="string">
+      SELECT count(1) FROM mall_user WHERE user_tel = #{userTel}
+    </select>
+
+    <select id="selectPasswordByNickname" resultType="string" parameterType="string">
+        SELECT password FROM mall_user WHERE user_nickname = #{userNickName}
+    </select>
+
+    <insert id="insert" parameterType="com.mall.pojo.User">
+    insert into mall_user (user_nickname, user_password, user_name, user_sex, user_tel, user_role)
+    values (#{userNickname}, #{userPassword}, #{userName}, #{userSex}, #{userTel}, #{userRole})
+    </insert>
+
+</mapper>
