@@ -9,8 +9,10 @@ import com.mall.service.UserService;
 import com.mall.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("userServiceImpl")
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
